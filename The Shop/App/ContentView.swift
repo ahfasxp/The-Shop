@@ -15,17 +15,17 @@ struct ContentView: View {
           Label("", systemImage: "house")
         }
 
-      HomeView()
+      FavoriteView()
         .tabItem {
-          Label("", systemImage: "bookmark")
+          Label("", systemImage: "heart")
         }
 
-      HomeView()
+      NotificationView()
         .tabItem {
           Label("", systemImage: "bell")
         }
 
-      HomeView()
+      ProfileView()
         .tabItem {
           Label("", systemImage: "person")
         }

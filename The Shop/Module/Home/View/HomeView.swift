@@ -11,93 +11,112 @@ import SwiftUI
 struct HomeView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 0.0) {
-      header
+      HeaderView(headerName: "The Shop")
+        .padding(.bottom, 20)
       listCategory
-      content
+      listProduct
     }
   }
 }
 
 extension HomeView {
-  var header: some View {
-    HStack {
-      Image("icon-search")
-        .resizable()
-        .frame(width: 24, height: 24)
-      Spacer()
+  private var listCategory: some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: 25.0) {
+        VStack {
+          Text("A")
+            .font(.system(size: 14))
+            .fontWeight(.semibold)
+            .padding(.vertical, 15)
+            .padding(.horizontal, 20)
+            .background(.black)
+            .foregroundColor(.white)
+            .cornerRadius(15)
+          Text("Category")
+        }
 
-      Text("The Shop")
-        .font(.title)
-        .fontWeight(.semibold)
-      Spacer()
+        VStack {
+          Text("B")
+            .font(.system(size: 14))
+            .fontWeight(.semibold)
+            .padding(.vertical, 15)
+            .padding(.horizontal, 20)
+            .background(.gray)
+            .foregroundColor(.white)
+            .cornerRadius(15)
+          Text("Category")
+        }
 
-      Image("icon-cart")
-        .resizable()
-        .frame(width: 24, height: 24)
+        VStack {
+          Text("B")
+            .font(.system(size: 14))
+            .fontWeight(.semibold)
+            .padding(.vertical, 15)
+            .padding(.horizontal, 20)
+            .background(.gray)
+            .foregroundColor(.white)
+            .cornerRadius(15)
+          Text("Category")
+        }
+
+        VStack {
+          Text("B")
+            .font(.system(size: 14))
+            .fontWeight(.semibold)
+            .padding(.vertical, 15)
+            .padding(.horizontal, 20)
+            .background(.gray)
+            .foregroundColor(.white)
+            .cornerRadius(15)
+          Text("Category")
+        }
+
+        VStack {
+          Text("B")
+            .font(.system(size: 14))
+            .fontWeight(.semibold)
+            .padding(.vertical, 15)
+            .padding(.horizontal, 20)
+            .background(.gray)
+            .foregroundColor(.white)
+            .cornerRadius(15)
+          Text("Category")
+        }
+      }
+      .padding(.leading, 17)
+      .padding(.bottom, 20)
     }
-    .padding()
-    .padding(.bottom, 20)
   }
 
-  var listCategory: some View {
-    HStack(spacing: 25.0) {
-      VStack {
-        Text("A")
-          .font(.system(size: 14))
-          .fontWeight(.semibold)
-          .padding(.vertical, 15)
-          .padding(.horizontal, 20)
-          .background(.black)
-          .foregroundColor(.white)
-          .cornerRadius(15)
-        Text("Category")
-      }
-
-      VStack {
-        Text("B")
-          .font(.system(size: 14))
-          .fontWeight(.semibold)
-          .padding(.vertical, 15)
-          .padding(.horizontal, 20)
-          .background(.gray)
-          .foregroundColor(.white)
-          .cornerRadius(15)
-        Text("Category")
-      }
-    }
-    .padding(.leading, 17)
-    .padding(.bottom, 20)
-  }
-
-  var content: some View {
+  private var listProduct: some View {
     ScrollView(.vertical, showsIndicators: false) {
       GridStack(rows: 5, columns: 2) { _, _ in
-        ZStack {
-          RoundedRectangle(
-            cornerRadius: 1,
-            style: .continuous
-          )
-          .fill(.white)
-
-          VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
+          ZStack(alignment: .bottomTrailing) {
             Image("item")
               .resizable()
-              .scaledToFit()
+              .scaledToFill()
               .cornerRadius(16)
 
-            Text("Meal")
-              .font(.system(size: 14))
-              .fontWeight(.regular)
-              .padding(.top, 10)
-              .padding(.bottom, 5)
-
-            Text("$ 12.00")
-              .font(.system(size: 14))
-              .fontWeight(.bold)
+            Image("icon-bag")
+              .resizable()
+              .scaledToFit()
+              .frame(width: 30, height: 30)
+              .padding(10)
           }
-          .padding(.horizontal, 10)
-          .padding(.bottom, 15)
+
+          Text("Meal")
+            .font(.system(size: 14))
+            .fontWeight(.regular)
+            .padding(.top, 10)
+            .padding(.bottom, 5)
+
+          Text("$ 12.00")
+            .font(.system(size: 14))
+            .fontWeight(.bold)
         }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 15)
       }
     }
   }
