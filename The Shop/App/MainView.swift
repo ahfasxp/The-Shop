@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MainView: App {
+  let homePresenter = Injection().homePresenter()
   var body: some Scene {
     WindowGroup {
       ContentView()
+        .environmentObject(homePresenter)
     }
   }
 }
