@@ -12,7 +12,7 @@ import SwiftUI
 struct HomeView: View {
   @ObservedObject var presenter: HomePresenter
 
-  @State private var selectedCat: String?
+  @State private var selectedCat = "All"
 
   var body: some View {
     ZStack {
@@ -72,7 +72,7 @@ extension HomeView {
               }
               .onTapGesture {
                 selectedCat = category
-                presenter.getProductsByCategory(selectedCat!)
+                presenter.getProductsByCategory(selectedCat)
               }
             }
           }
