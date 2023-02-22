@@ -16,14 +16,13 @@ struct HomeView: View {
   @State private var selectedCat = "All"
 
   var body: some View {
-    ZStack {
-      VStack(alignment: .leading, spacing: 0.0) {
-        HeaderView(cartPresenter: cartPresenter, headerName: "The Shop")
-          .padding(.bottom, 20)
-        listCategory
-        listProduct
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
-      }
+    VStack(alignment: .leading, spacing: 0.0) {
+      HeaderView(cartPresenter: cartPresenter, headerName: "The Shop")
+        .padding(.bottom, 20)
+      listCategory
+      listProduct
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+      Spacer()
     }.onAppear {
       if homePresenter.products.isEmpty && homePresenter.categories.isEmpty {
         homePresenter.getProducts()
