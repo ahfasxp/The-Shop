@@ -12,35 +12,41 @@ struct ContentView: View {
   @EnvironmentObject var cartPresenter: CartPresenter
 
   var body: some View {
-    TabView {
-      HomeView(
-        homePresenter: homePresenter,
-        cartPresenter: cartPresenter)
-        .tabItem {
-          Label("", systemImage: "house")
-        }
+    NavigationView {
+      TabView {
+        HomeView(
+          homePresenter: homePresenter,
+          cartPresenter: cartPresenter)
+          .tabItem {
+            Label("", systemImage: "house")
+          }
 
-      FavoriteView(cartPresenter: cartPresenter)
-        .tabItem {
-          Label("", systemImage: "heart")
-        }
+        FavoriteView(cartPresenter: cartPresenter)
+          .tabItem {
+            Label("", systemImage: "heart")
+          }
 
-      NotificationView()
-        .tabItem {
-          Label("", systemImage: "bell")
-        }
+        NotificationView()
+          .tabItem {
+            Label("", systemImage: "bell")
+          }
 
-      ProfileView()
-        .tabItem {
-          Label("", systemImage: "person")
-        }
-    }
-    .accentColor(.black)
+        ProfileView()
+          .tabItem {
+            Label("", systemImage: "person")
+          }
+      }
+      .accentColor(.black)
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 }
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
+    let homePresenter = Injection().homePresenter()
+    let cartPresenter = Injection().cartPresenter()
     ContentView()
+      .environmentObject(homePresenter)
+      .environmentObject(cartPresenter)
   }
 }

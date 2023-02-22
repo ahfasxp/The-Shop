@@ -7,9 +7,12 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class HomePresenter: ObservableObject {
   private var cancellables: Set<AnyCancellable> = []
+  private let router = HomeRouter()
+
   private let getProductsUsecase: GetProductsUsecase
   private let getCategoriesUsecase: GetCategoriesUsecase
   private let getProductsByCategoryUsecase: GetProductsByCategoryUsecase
@@ -89,5 +92,12 @@ class HomePresenter: ObservableObject {
         self.products = products
       })
       .store(in: &cancellables)
+  }
+
+  func linkBuilder<Content: View>(
+    _ product: Product,
+    @ViewBuilder content: () -> Content
+  ) -> some View {
+    NavigationLink(destination: router.makeDetailView(product)) { content() }
   }
 }
