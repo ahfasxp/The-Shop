@@ -32,4 +32,8 @@ final class Injection: NSObject {
       getProductsByCategoryUsecase: getProductsByCategoryInteractor()
     )
   }
+
+  func cartPresenter() -> CartPresenter {
+    return CartPresenter()
+  }
 }

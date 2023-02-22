@@ -9,15 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
   @EnvironmentObject var homePresenter: HomePresenter
+  @EnvironmentObject var cartPresenter: CartPresenter
 
   var body: some View {
     TabView {
-      HomeView(presenter: homePresenter)
+      HomeView(
+        homePresenter: homePresenter,
+        cartPresenter: cartPresenter)
         .tabItem {
           Label("", systemImage: "house")
         }
 
-      FavoriteView()
+      FavoriteView(cartPresenter: cartPresenter)
         .tabItem {
           Label("", systemImage: "heart")
         }

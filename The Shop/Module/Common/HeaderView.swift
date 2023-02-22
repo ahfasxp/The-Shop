@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
+  @ObservedObject var cartPresenter: CartPresenter
   var headerName: String
 
   var body: some View {
@@ -29,7 +30,7 @@ struct HeaderView: View {
           .scaledToFit()
           .frame(width: 24, height: 24)
 
-        Text("2")
+        Text(String(describing: cartPresenter.cart.count))
           .font(.system(size: 10))
           .padding(.horizontal, 3)
           .padding(.vertical, 1)
@@ -44,7 +45,8 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    HeaderView(headerName: "The Shop")
+    let cartPresenter = Injection().cartPresenter()
+    HeaderView(cartPresenter: cartPresenter, headerName: "The Shop")
       .previewLayout(.sizeThatFits)
   }
 }

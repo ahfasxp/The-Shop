@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct MainView: App {
   let homePresenter = Injection().homePresenter()
+  let cartPresenter = Injection().cartPresenter()
 
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environmentObject(homePresenter)
+        .environmentObject(cartPresenter)
     }
   }
 }

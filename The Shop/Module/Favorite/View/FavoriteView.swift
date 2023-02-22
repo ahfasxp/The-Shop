@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct FavoriteView: View {
+  @ObservedObject var cartPresenter: CartPresenter
+
   var body: some View {
     VStack(alignment: .leading) {
-      HeaderView(headerName: "Favorite")
+      HeaderView(cartPresenter: cartPresenter, headerName: "Favorite")
       listFavorite
       Spacer()
     }
@@ -77,6 +79,7 @@ extension FavoriteView {
 
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView()
+    let cartPresenter = Injection().cartPresenter()
+    FavoriteView(cartPresenter: cartPresenter)
   }
 }

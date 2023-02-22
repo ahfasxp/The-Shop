@@ -10,23 +10,24 @@ import Foundation
 import SwiftUI
 
 struct HomeView: View {
-  @ObservedObject var presenter: HomePresenter
+  @ObservedObject var homePresenter: HomePresenter
+  @ObservedObject var cartPresenter: CartPresenter
 
   @State private var selectedCat = "All"
 
   var body: some View {
     ZStack {
       VStack(alignment: .leading, spacing: 0.0) {
-        HeaderView(headerName: "The Shop")
+        HeaderView(cartPresenter: cartPresenter, headerName: "The Shop")
           .padding(.bottom, 20)
         listCategory
         listProduct
           .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
     }.onAppear {
-      if presenter.products.isEmpty && presenter.categories.isEmpty {
-        presenter.getProducts()
-        presenter.getCategories()
+      if homePresenter.products.isEmpty && homePresenter.categories.isEmpty {
+        homePresenter.getProducts()
+        homePresenter.getCategories()
       }
     }
   }
@@ -35,7 +36,7 @@ struct HomeView: View {
 extension HomeView {
   private var listCategory: some View {
     ZStack {
-      if !presenter.isLoadingCategories {
+      if !homePresenter.isLoadingCategories {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 25.0) {
             VStack {
@@ -53,10 +54,10 @@ extension HomeView {
             }
             .onTapGesture {
               selectedCat = "All"
-              presenter.getProducts()
+              homePresenter.getProducts()
             }
 
-            ForEach(presenter.categories, id: \.self) { category in
+            ForEach(homePresenter.categories, id: \.self) { category in
               VStack {
                 Text(String(category.prefix(1).uppercased()))
                   .font(.system(size: 14))
@@ -72,7 +73,7 @@ extension HomeView {
               }
               .onTapGesture {
                 selectedCat = category
-                presenter.getProductsByCategory(selectedCat)
+                homePresenter.getProductsByCategory(selectedCat)
               }
             }
           }
@@ -85,23 +86,23 @@ extension HomeView {
 
   private var listProduct: some View {
     ZStack {
-      if presenter.isLoadingProducts {
+      if homePresenter.isLoadingProducts {
         VStack {
           Text("Loading...")
           ProgressView()
         }
-      } else if presenter.isErrorProducts {
+      } else if homePresenter.isErrorProducts {
         CustomEmptyView(
           image: "exclamationmark.triangle",
-          title: presenter.errorMessageProducts
+          title: homePresenter.errorMessageProducts
         )
       } else {
         ScrollView(.vertical, showsIndicators: false) {
           GridStack(rows: 5, columns: 2) { row, col in
-            if self.presenter.products.indices.contains(row * 2 + col) {
+            if homePresenter.products.indices.contains(row * 2 + col) {
               VStack(alignment: .leading) {
                 ZStack(alignment: .bottomTrailing) {
-                  CachedAsyncImage(url: URL(string: self.presenter.products[row * 2 + col].image ?? "")) { image in
+                  CachedAsyncImage(url: URL(string: homePresenter.products[row * 2 + col].image ?? "")) { image in
                     image.resizable()
                   } placeholder: {
                     Color.gray
@@ -115,15 +116,18 @@ extension HomeView {
                     .scaledToFit()
                     .frame(width: 30, height: 30)
                     .padding(10)
+                    .onTapGesture {
+                      cartPresenter.cart.append(homePresenter.products[row * 2 + col])
+                    }
                 }
 
-                Text(self.presenter.products[row * 2 + col].title ?? "Pruduct Name")
+                Text(homePresenter.products[row * 2 + col].title ?? "Pruduct Name")
                   .font(.system(size: 14))
                   .fontWeight(.regular)
                   .padding(.top, 10)
                   .padding(.bottom, 5)
 
-                Text("$ \(String(self.presenter.products[row * 2 + col].price ?? 0.0))")
+                Text("$ \(String(homePresenter.products[row * 2 + col].price ?? 0.0))")
                   .font(.system(size: 14))
                   .fontWeight(.bold)
               }
@@ -144,6 +148,10 @@ extension HomeView {
 struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
     let homePresenter = Injection().homePresenter()
-    HomeView(presenter: homePresenter)
+    let cartPresenter = Injection().cartPresenter()
+    HomeView(
+      homePresenter: homePresenter,
+      cartPresenter: cartPresenter
+    )
   }
 }
