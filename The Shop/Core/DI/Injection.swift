@@ -10,16 +10,18 @@ import Foundation
 final class Injection: NSObject {
   private func provideRepository() -> MainRepositoryProtocol {
     let remote = RemoteDataSource.sharedInstance
-
     return MainRepository.sharedInstance(remote)
   }
 
-  func getProductsInteractor() -> GetProductsUsecase {
-    let repository = provideRepository()
-    return GetProductsInteractor(repository: repository)
+  private func getProductsInteractor() -> GetProductsUsecase {
+    return GetProductsInteractor(repository: provideRepository())
+  }
+
+  private func getCategoriesInteractor() -> GetCategoriesUsecase {
+    return GetCategoriesInteractor(repository: provideRepository())
   }
 
   func homePresenter() -> HomePresenter {
-    return HomePresenter(getProductsUsecase: getProductsInteractor())
+    return HomePresenter(getProductsUsecase: getProductsInteractor(), getCategoriesUsecase: getCategoriesInteractor())
   }
 }

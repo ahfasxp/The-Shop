@@ -18,10 +18,12 @@ protocol Endpoint {
 enum Endpoints {
   enum Gets: Endpoint {
     case products
+    case categories
 
     public var url: String {
       switch self {
       case .products: return "\(API.baseUrl)products"
+      case .categories: return "\(API.baseUrl)products/categories"
       }
     }
   }

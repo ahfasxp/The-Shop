@@ -33,8 +33,9 @@ struct HomeView: View {
         }
       }
     }.onAppear {
-      if self.presenter.products.count == 0 {
-        self.presenter.getProducts()
+      if presenter.products.isEmpty && presenter.categories.isEmpty {
+        presenter.getProducts()
+        presenter.getCategories()
       }
     }
   }
@@ -42,73 +43,70 @@ struct HomeView: View {
 
 extension HomeView {
   private var listCategory: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      HStack(spacing: 25.0) {
-        VStack {
-          Text("A")
-            .font(.system(size: 14))
-            .fontWeight(.semibold)
-            .padding(.vertical, 15)
-            .padding(.horizontal, 20)
-            .background(.black)
-            .foregroundColor(.white)
-            .cornerRadius(15)
-          Text("Category")
+    ZStack {
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 25.0) {
+          ForEach(presenter.categories, id: \.self) { category in
+            VStack {
+              Text(String(category.prefix(1).uppercased()))
+                .font(.system(size: 14))
+                .fontWeight(.semibold)
+                .padding(.vertical, 15)
+                .padding(.horizontal, 20)
+                .background(Color(hex: "#F5F5F5"))
+                .foregroundColor(.black)
+                .cornerRadius(15)
+              Text(category)
+                .frame(width: 80)
+                .lineLimit(1)
+            }
+          }
         }
+        .padding(.leading, 17)
+        .padding(.bottom, 20)
       }
-      .padding(.leading, 17)
-      .padding(.bottom, 20)
     }
   }
 
   private var listProduct: some View {
     ZStack {
-      if presenter.products.isEmpty {
-        VStack {
-          CustomEmptyView(
-            image: "exclamationmark.square",
-            title: "The Products is empty"
-          )
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-      } else {
-        ScrollView(.vertical, showsIndicators: false) {
-          GridStack(rows: 5, columns: 2) { row, col in
-            if self.presenter.products.indices.contains(row * 2 + col) {
-              VStack(alignment: .leading) {
-                ZStack(alignment: .bottomTrailing) {
-                  CachedAsyncImage(url: URL(string: self.presenter.products[row * 2 + col].image ?? "")) { image in
-                    image.resizable()
-                  } placeholder: {
-                    Color.gray
-                  }
-                  .scaledToFit()
-                  .frame(width: 157, height: 200)
-                  .cornerRadius(16)
-
-                  Image("icon-bag")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .padding(10)
+      ScrollView(.vertical, showsIndicators: false) {
+        GridStack(rows: 5, columns: 2) { row, col in
+          if self.presenter.products.indices.contains(row * 2 + col) {
+            VStack(alignment: .leading) {
+              ZStack(alignment: .bottomTrailing) {
+                CachedAsyncImage(url: URL(string: self.presenter.products[row * 2 + col].image ?? "")) { image in
+                  image.resizable()
+                } placeholder: {
+                  Color.gray
                 }
+                .scaledToFit()
+                .frame(width: 157, height: 200)
+                .cornerRadius(16)
 
-                Text(self.presenter.products[row * 2 + col].title ?? "Pruduct Name")
-                  .font(.system(size: 14))
-                  .fontWeight(.regular)
-                  .padding(.top, 10)
-                  .padding(.bottom, 5)
-
-                Text("$ \(String(self.presenter.products[row * 2 + col].price ?? 0.0))")
-                  .font(.system(size: 14))
-                  .fontWeight(.bold)
+                Image("icon-bag")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 30, height: 30)
+                  .padding(10)
               }
-              .padding(.horizontal, 10)
-              .padding(.bottom, 15)
-            } else {
-              VStack {
-                EmptyView()
-              }.frame(maxWidth: .infinity)
+
+              Text(self.presenter.products[row * 2 + col].title ?? "Pruduct Name")
+                .font(.system(size: 14))
+                .fontWeight(.regular)
+                .padding(.top, 10)
+                .padding(.bottom, 5)
+
+              Text("$ \(String(self.presenter.products[row * 2 + col].price ?? 0.0))")
+                .font(.system(size: 14))
+                .fontWeight(.bold)
             }
+            .padding(.horizontal, 10)
+            .padding(.bottom, 15)
+          } else {
+            VStack {
+              EmptyView()
+            }.frame(maxWidth: .infinity)
           }
         }
       }

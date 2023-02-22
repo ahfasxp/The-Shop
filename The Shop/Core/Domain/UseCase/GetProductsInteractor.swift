@@ -5,9 +5,8 @@
 //  Created by OjekBro - Ahfas on 21/02/23.
 //
 
-import Foundation
-
 import Combine
+import Foundation
 
 protocol GetProductsUsecase {
   func execute() -> AnyPublisher<[Product], Error>

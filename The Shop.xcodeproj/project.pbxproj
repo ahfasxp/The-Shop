@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		389F9DAA29A5ACF10076D21D /* GetCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */; };
+		389F9DAC29A5B3900076D21D /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DAB29A5B3900076D21D /* ColorExt.swift */; };
 		38A15B6B29A4A377001A58A3 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */; };
 		38A15B6F29A4A639001A58A3 /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B6E29A4A639001A58A3 /* APICall.swift */; };
 		38A15B7229A4A69B001A58A3 /* CustomeError+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B7129A4A69B001A58A3 /* CustomeError+Ext.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesInteractor.swift; sourceTree = "<group>"; };
+		389F9DAB29A5B3900076D21D /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
 		38A15B6E29A4A639001A58A3 /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
 		38A15B7129A4A69B001A58A3 /* CustomeError+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomeError+Ext.swift"; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				38A15B7129A4A69B001A58A3 /* CustomeError+Ext.swift */,
+				389F9DAB29A5B3900076D21D /* ColorExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				38A15B8229A4B790001A58A3 /* GetProductsInteractor.swift */,
+				389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -413,10 +419,12 @@
 				38EFAD0429A466DC00B82FC6 /* NotificationView.swift in Sources */,
 				38A15B6B29A4A377001A58A3 /* RemoteDataSource.swift in Sources */,
 				38A15B8629A4B897001A58A3 /* HomePresenter.swift in Sources */,
+				389F9DAC29A5B3900076D21D /* ColorExt.swift in Sources */,
 				38B9E92C29A3651D00267BD4 /* ContentView.swift in Sources */,
 				38BCED8129A39E8E009581C7 /* GridStack.swift in Sources */,
 				38EFACFE29A4548800B82FC6 /* FavoriteView.swift in Sources */,
 				38A15B8929A4B9F9001A58A3 /* Injection.swift in Sources */,
+				389F9DAA29A5ACF10076D21D /* GetCategoriesInteractor.swift in Sources */,
 				38B9E92A29A3651D00267BD4 /* MainView.swift in Sources */,
 				38A15B7D29A4AD92001A58A3 /* Product.swift in Sources */,
 			);
