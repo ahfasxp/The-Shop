@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38065A4429A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */; };
 		389F9DAA29A5ACF10076D21D /* GetCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */; };
 		389F9DAC29A5B3900076D21D /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DAB29A5B3900076D21D /* ColorExt.swift */; };
 		38A15B6B29A4A377001A58A3 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductByCategoryInteractor.swift; sourceTree = "<group>"; };
 		389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesInteractor.swift; sourceTree = "<group>"; };
 		389F9DAB29A5B3900076D21D /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				38A15B8229A4B790001A58A3 /* GetProductsInteractor.swift */,
 				389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */,
+				38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				38A15B7229A4A69B001A58A3 /* CustomeError+Ext.swift in Sources */,
 				38A15B6F29A4A639001A58A3 /* APICall.swift in Sources */,
 				38A15B8329A4B790001A58A3 /* GetProductsInteractor.swift in Sources */,
+				38065A4429A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift in Sources */,
 				38A15B7729A4A74B001A58A3 /* ProductsResponse.swift in Sources */,
 				38A15B8B29A4C082001A58A3 /* CustomEmptyView.swift in Sources */,
 				38EFAD0029A454C800B82FC6 /* HeaderView.swift in Sources */,

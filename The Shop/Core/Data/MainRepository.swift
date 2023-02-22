@@ -11,6 +11,7 @@ import Foundation
 protocol MainRepositoryProtocol {
   func getProducts() -> AnyPublisher<[Product], Error>
   func getCategories() -> AnyPublisher<[String], Error>
+  func getProductsByCategory(_ category: String) -> AnyPublisher<[Product], Error>
 }
 
 final class MainRepository: NSObject {
@@ -36,6 +37,12 @@ extension MainRepository: MainRepositoryProtocol {
 
   func getCategories() -> AnyPublisher<[String], Error> {
     return self.remote.getCategories()
+      .eraseToAnyPublisher()
+  }
+
+  func getProductsByCategory(_ category: String) -> AnyPublisher<[Product], Error> {
+    return self.remote.getProductsByCategory(category)
+      .map { ProductMapper.mapProductsResponseToDomain(input: $0) }
       .eraseToAnyPublisher()
   }
 }

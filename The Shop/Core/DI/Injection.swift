@@ -21,7 +21,15 @@ final class Injection: NSObject {
     return GetCategoriesInteractor(repository: provideRepository())
   }
 
+  private func getProductsByCategoryInteractor() -> GetProductsByCategoryUsecase {
+    return GetProductsByCategoryInteractor(repository: provideRepository())
+  }
+
   func homePresenter() -> HomePresenter {
-    return HomePresenter(getProductsUsecase: getProductsInteractor(), getCategoriesUsecase: getCategoriesInteractor())
+    return HomePresenter(
+      getProductsUsecase: getProductsInteractor(),
+      getCategoriesUsecase: getCategoriesInteractor(),
+      getProductsByCategoryUsecase: getProductsByCategoryInteractor()
+    )
   }
 }

@@ -19,11 +19,13 @@ enum Endpoints {
   enum Gets: Endpoint {
     case products
     case categories
+    case productsByCategory
 
     public var url: String {
       switch self {
       case .products: return "\(API.baseUrl)products"
       case .categories: return "\(API.baseUrl)products/categories"
+      case .productsByCategory: return "\(API.baseUrl)products/category/"
       }
     }
   }

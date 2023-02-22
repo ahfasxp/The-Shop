@@ -12,30 +12,40 @@ class HomePresenter: ObservableObject {
   private var cancellables: Set<AnyCancellable> = []
   private let getProductsUsecase: GetProductsUsecase
   private let getCategoriesUsecase: GetCategoriesUsecase
+  private let getProductsByCategoryUsecase: GetProductsByCategoryUsecase
 
   @Published var products: [Product] = []
-  @Published var categories: [String] = []
-  @Published var errorMessage: String = ""
-  @Published var isLoading: Bool = false
-  @Published var isError: Bool = false
+  @Published var errorMessageProducts: String = ""
+  @Published var isLoadingProducts: Bool = false
+  @Published var isErrorProducts: Bool = false
 
-  init(getProductsUsecase: GetProductsUsecase, getCategoriesUsecase: GetCategoriesUsecase) {
+  @Published var categories: [String] = []
+  @Published var errorMessageCategories: String = ""
+  @Published var isLoadingCategories: Bool = false
+  @Published var isErrorCategories: Bool = false
+
+  init(
+    getProductsUsecase: GetProductsUsecase,
+    getCategoriesUsecase: GetCategoriesUsecase,
+    getProductsByCategoryUsecase: GetProductsByCategoryUsecase
+  ) {
     self.getProductsUsecase = getProductsUsecase
     self.getCategoriesUsecase = getCategoriesUsecase
+    self.getProductsByCategoryUsecase = getProductsByCategoryUsecase
   }
 
   func getProducts() {
-    isLoading = true
+    isLoadingProducts = true
     getProductsUsecase.execute()
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { completion in
         switch completion {
         case .failure(let error):
-          self.errorMessage = error.localizedDescription
-          self.isError = true
-          self.isLoading = false
+          self.errorMessageProducts = error.localizedDescription
+          self.isErrorProducts = true
+          self.isLoadingProducts = false
         case .finished:
-          self.isLoading = false
+          self.isLoadingProducts = false
         }
       }, receiveValue: { products in
         self.products = products
@@ -44,20 +54,39 @@ class HomePresenter: ObservableObject {
   }
 
   func getCategories() {
-    isLoading = true
+    isLoadingCategories = true
     getCategoriesUsecase.execute()
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { completion in
         switch completion {
         case .failure(let error):
-          self.errorMessage = error.localizedDescription
-          self.isError = true
-          self.isLoading = false
+          self.errorMessageCategories = error.localizedDescription
+          self.isErrorCategories = true
+          self.isLoadingCategories = false
         case .finished:
-          self.isLoading = false
+          self.isLoadingCategories = false
         }
       }, receiveValue: { categories in
         self.categories = categories
+      })
+      .store(in: &cancellables)
+  }
+
+  func getProductsByCategory(_ category: String) {
+    isLoadingProducts = true
+    getProductsByCategoryUsecase.execute(category)
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure(let error):
+          self.errorMessageProducts = error.localizedDescription
+          self.isErrorProducts = true
+          self.isLoadingProducts = false
+        case .finished:
+          self.isLoadingProducts = false
+        }
+      }, receiveValue: { products in
+        self.products = products
       })
       .store(in: &cancellables)
   }

@@ -12,6 +12,7 @@ import Foundation
 protocol RemoteDataSourceProtocol: AnyObject {
   func getProducts() -> AnyPublisher<[ProductResponse], Error>
   func getCategories() -> AnyPublisher<[String], Error>
+  func getProductsByCategory(_ category: String) -> AnyPublisher<[ProductResponse], Error>
 }
 
 final class RemoteDataSource: NSObject {
@@ -44,6 +45,24 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
         AF.request(url)
           .validate()
           .responseDecodable(of: [String].self) { response in
+            switch response.result {
+            case .success(let value):
+              completion(.success(value))
+            case .failure:
+              completion(.failure(URLError.invalidResponse))
+            }
+          }
+      }
+    }.eraseToAnyPublisher()
+  }
+
+  func getProductsByCategory(_ category: String) -> AnyPublisher<[ProductResponse], Error> {
+    return Future<[ProductResponse], Error> { completion in
+      let replaced = category.replacingOccurrences(of: " ", with: "%20")
+      if let url = URL(string: Endpoints.Gets.productsByCategory.url + replaced) {
+        AF.request(url)
+          .validate()
+          .responseDecodable(of: ProductsResponse.self) { response in
             switch response.result {
             case .success(let value):
               completion(.success(value))
