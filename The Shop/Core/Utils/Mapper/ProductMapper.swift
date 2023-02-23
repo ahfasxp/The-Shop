@@ -30,20 +30,20 @@ final class ProductMapper {
   static func domainProductToEntity(
     input product: Product
   ) -> ProductEntity {
-    let entity = ProductEntity()
-    entity.id = product.id ?? 0
-    entity.title = product.title ?? ""
-    entity.price = product.price ?? 0.0
-    entity.desc = product.description ?? ""
-    entity.category = product.category ?? ""
-    entity.image = product.image ?? ""
+    let productEntity = ProductEntity()
+    productEntity.id = product.id ?? 0
+    productEntity.title = product.title ?? ""
+    productEntity.price = product.price ?? 0.0
+    productEntity.desc = product.description ?? ""
+    productEntity.category = product.category ?? ""
+    productEntity.image = product.image ?? ""
 
     let ratingEntity = RatingEntity()
     ratingEntity.rate = product.rating.rate ?? 0.0
     ratingEntity.count = product.rating.count ?? 0
 
-    entity.rating = ratingEntity
-    return entity
+    productEntity.rating = ratingEntity
+    return productEntity
   }
 
   static func productEntityToDomain(
@@ -71,12 +71,12 @@ final class ProductMapper {
         id: result.id,
         title: result.title,
         price: result.price,
-        description: result.description,
+        description: result.desc,
         category: result.category,
         image: result.image,
         rating: Rating(
-          rate: result.rating?.rate ?? 0.0,
-          count: result.rating?.count ?? 0
+          rate: result.rating?.rate,
+          count: result.rating?.count
         )
       )
     }

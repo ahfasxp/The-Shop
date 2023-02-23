@@ -8,9 +8,9 @@
 import Foundation
 import SwiftUI
 
-class HomeRouter {
-  func makeDetailView(_ product: Product) -> some View {
-    let detailPresenter = Injection().detailPresenter()
-    return DetailView(detailPresenter: detailPresenter, product: product)
-  }
-}
+// class HomeRouter {
+//  func makeDetailView(_ product: Product) -> some View {
+//    let detailPresenter = Injection().detailPresenter()
+//    return DetailView(detailPresenter: detailPresenter, product: product)
+//  }
+// }

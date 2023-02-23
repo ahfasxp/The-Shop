@@ -11,12 +11,14 @@ import SwiftUI
 
 struct DetailView: View {
   @ObservedObject var detailPresenter: DetailPresenter
+  @ObservedObject var cartPresenter: CartPresenter
   let product: Product
 
   // for action back view
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
   @State private var isActive = false
+  @State private var qty = 0
 
   var body: some View {
     ZStack(alignment: .bottom) {
@@ -90,8 +92,11 @@ extension DetailView {
               .frame(width: 30, height: 30)
               .background(Color(hex: "#F0F0F0"))
               .cornerRadius(10)
+              .onTapGesture {
+                qty += 1
+              }
 
-            Text("1")
+            Text(String(qty))
               .font(.system(size: 18))
               .fontWeight(.semibold)
               .padding(.horizontal)
@@ -100,6 +105,11 @@ extension DetailView {
               .frame(width: 30, height: 30)
               .background(Color(hex: "#F0F0F0"))
               .cornerRadius(10)
+              .onTapGesture {
+                if qty > 0 {
+                  qty -= 1
+                }
+              }
           }
           .padding(.horizontal, 25)
           .padding(.bottom, 10)
@@ -169,6 +179,7 @@ extension DetailView {
 
       Button(action: {
         isActive = !isActive
+        cartPresenter.cart.append(product)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
           isActive = !isActive
         }
@@ -190,6 +201,7 @@ extension DetailView {
 struct DetailView_Previews: PreviewProvider {
   static var previews: some View {
     let detailPresenter = Injection().detailPresenter()
+    let cartPresenter = Injection().cartPresenter()
     let product = Product(
       id: 1,
       title: "Product Name",
@@ -198,6 +210,6 @@ struct DetailView_Previews: PreviewProvider {
       category: "Category",
       image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
       rating: Rating(rate: 3.9, count: 120))
-    DetailView(detailPresenter: detailPresenter, product: product)
+    DetailView(detailPresenter: detailPresenter, cartPresenter: cartPresenter, product: product)
   }
 }

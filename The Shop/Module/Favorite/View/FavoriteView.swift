@@ -31,9 +31,17 @@ extension FavoriteView {
         ScrollView(.vertical, showsIndicators: false) {
           VStack(alignment: .leading, spacing: 0.0) {
             ForEach(self.favoritePresenter.favorites, id: \.self) { favorite in
-              FavoriteCard(
-                favoritePresenter: favoritePresenter, product: favorite
-              )
+              let detailPresenter = Injection().detailPresenter()
+              NavigationHelper.linkBuilder(
+                destination: DetailView(
+                  detailPresenter: detailPresenter,
+                  cartPresenter: cartPresenter,
+                  product: favorite
+                )) {
+                  FavoriteCard(
+                    favoritePresenter: favoritePresenter, product: favorite
+                  )
+                }
             }
           }
         }

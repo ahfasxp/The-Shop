@@ -18,6 +18,7 @@
 		38438E0829A740E2008C85F6 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38438E0729A740E2008C85F6 /* DetailPresenter.swift */; };
 		38438E0A29A74FFD008C85F6 /* FavoriteCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38438E0929A74FFD008C85F6 /* FavoriteCard.swift */; };
 		38438E0C29A753E4008C85F6 /* ProductTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38438E0B29A753E4008C85F6 /* ProductTile.swift */; };
+		384C373429A78F96009AAA18 /* NavigationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384C373329A78F96009AAA18 /* NavigationHelper.swift */; };
 		38785EAA29A5EF190029A7D6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EA929A5EF190029A7D6 /* DetailView.swift */; };
 		38785EAC29A5F7F90029A7D6 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EAB29A5F7F90029A7D6 /* ViewExt.swift */; };
 		38785EAF29A606280029A7D6 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EAE29A606280029A7D6 /* HomeRouter.swift */; };
@@ -58,6 +59,7 @@
 		38438E0729A740E2008C85F6 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		38438E0929A74FFD008C85F6 /* FavoriteCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCard.swift; sourceTree = "<group>"; };
 		38438E0B29A753E4008C85F6 /* ProductTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTile.swift; sourceTree = "<group>"; };
+		384C373329A78F96009AAA18 /* NavigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHelper.swift; sourceTree = "<group>"; };
 		38785EA929A5EF190029A7D6 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		38785EAB29A5F7F90029A7D6 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		38785EAE29A606280029A7D6 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
@@ -151,6 +153,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		384C373229A78F74009AAA18 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				384C373329A78F96009AAA18 /* NavigationHelper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		38785EA729A5EEC70029A7D6 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +227,7 @@
 		38A15B6C29A4A3EA001A58A3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				384C373229A78F74009AAA18 /* Helper */,
 				38A15B7E29A4B274001A58A3 /* Mapper */,
 				38A15B7029A4A677001A58A3 /* Extensions */,
 				38A15B6D29A4A60F001A58A3 /* Network */,
@@ -529,6 +540,7 @@
 				38A15B7229A4A69B001A58A3 /* CustomeError+Ext.swift in Sources */,
 				38A15B6F29A4A639001A58A3 /* APICall.swift in Sources */,
 				38438E0C29A753E4008C85F6 /* ProductTile.swift in Sources */,
+				384C373429A78F96009AAA18 /* NavigationHelper.swift in Sources */,
 				38438DF529A71ECF008C85F6 /* ProductEntity.swift in Sources */,
 				38438E0A29A74FFD008C85F6 /* FavoriteCard.swift in Sources */,
 				38A15B8329A4B790001A58A3 /* HomeInteractor.swift in Sources */,
