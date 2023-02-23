@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38065A4429A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */; };
 		38065A4829A5DA76008DB2D0 /* CartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38065A4729A5DA76008DB2D0 /* CartPresenter.swift */; };
+		38438DF129A6FE1B008C85F6 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38438DF029A6FE1B008C85F6 /* Navigation.swift */; };
 		38785EAA29A5EF190029A7D6 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EA929A5EF190029A7D6 /* DetailView.swift */; };
 		38785EAC29A5F7F90029A7D6 /* ViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EAB29A5F7F90029A7D6 /* ViewExt.swift */; };
 		38785EAF29A606280029A7D6 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38785EAE29A606280029A7D6 /* HomeRouter.swift */; };
-		389F9DAA29A5ACF10076D21D /* GetCategoriesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */; };
+		38785EB229A61E3D0029A7D6 /* AlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = 38785EB129A61E3D0029A7D6 /* AlertMessage */; };
 		389F9DAC29A5B3900076D21D /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389F9DAB29A5B3900076D21D /* ColorExt.swift */; };
 		38A15B6B29A4A377001A58A3 /* RemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */; };
 		38A15B6F29A4A639001A58A3 /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B6E29A4A639001A58A3 /* APICall.swift */; };
@@ -22,7 +22,7 @@
 		38A15B7929A4A9FB001A58A3 /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B7829A4A9FB001A58A3 /* MainRepository.swift */; };
 		38A15B7D29A4AD92001A58A3 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B7C29A4AD92001A58A3 /* Product.swift */; };
 		38A15B8029A4B290001A58A3 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B7F29A4B290001A58A3 /* ProductMapper.swift */; };
-		38A15B8329A4B790001A58A3 /* GetProductsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8229A4B790001A58A3 /* GetProductsInteractor.swift */; };
+		38A15B8329A4B790001A58A3 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8229A4B790001A58A3 /* HomeInteractor.swift */; };
 		38A15B8629A4B897001A58A3 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8529A4B897001A58A3 /* HomePresenter.swift */; };
 		38A15B8929A4B9F9001A58A3 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8829A4B9F9001A58A3 /* Injection.swift */; };
 		38A15B8B29A4C082001A58A3 /* CustomEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8A29A4C082001A58A3 /* CustomEmptyView.swift */; };
@@ -40,12 +40,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductByCategoryInteractor.swift; sourceTree = "<group>"; };
 		38065A4729A5DA76008DB2D0 /* CartPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPresenter.swift; sourceTree = "<group>"; };
+		38438DF029A6FE1B008C85F6 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		38785EA929A5EF190029A7D6 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		38785EAB29A5F7F90029A7D6 /* ViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExt.swift; sourceTree = "<group>"; };
 		38785EAE29A606280029A7D6 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
-		389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCategoriesInteractor.swift; sourceTree = "<group>"; };
 		389F9DAB29A5B3900076D21D /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 		38A15B6A29A4A377001A58A3 /* RemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataSource.swift; sourceTree = "<group>"; };
 		38A15B6E29A4A639001A58A3 /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
@@ -54,7 +53,7 @@
 		38A15B7829A4A9FB001A58A3 /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		38A15B7C29A4AD92001A58A3 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		38A15B7F29A4B290001A58A3 /* ProductMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductMapper.swift; sourceTree = "<group>"; };
-		38A15B8229A4B790001A58A3 /* GetProductsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductsInteractor.swift; sourceTree = "<group>"; };
+		38A15B8229A4B790001A58A3 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		38A15B8529A4B897001A58A3 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		38A15B8829A4B9F9001A58A3 /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		38A15B8A29A4C082001A58A3 /* CustomEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmptyView.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38785EB229A61E3D0029A7D6 /* AlertMessage in Frameworks */,
 				38A15B7529A4A6F3001A58A3 /* Alamofire in Frameworks */,
 				38A15B8E29A4C471001A58A3 /* CachedAsyncImage in Frameworks */,
 			);
@@ -98,6 +98,14 @@
 				38065A4729A5DA76008DB2D0 /* CartPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		38438DEF29A6FDFE008C85F6 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				38438DF029A6FE1B008C85F6 /* Navigation.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		38785EA729A5EEC70029A7D6 /* Detail */ = {
@@ -164,6 +172,7 @@
 		38A15B6C29A4A3EA001A58A3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				38438DEF29A6FDFE008C85F6 /* Helper */,
 				38A15B7E29A4B274001A58A3 /* Mapper */,
 				38A15B7029A4A677001A58A3 /* Extensions */,
 				38A15B6D29A4A60F001A58A3 /* Network */,
@@ -217,9 +226,7 @@
 		38A15B8129A4B759001A58A3 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				38A15B8229A4B790001A58A3 /* GetProductsInteractor.swift */,
-				389F9DA929A5ACF10076D21D /* GetCategoriesInteractor.swift */,
-				38065A4329A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift */,
+				38A15B8229A4B790001A58A3 /* HomeInteractor.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -402,6 +409,7 @@
 			packageProductDependencies = (
 				38A15B7429A4A6F3001A58A3 /* Alamofire */,
 				38A15B8D29A4C471001A58A3 /* CachedAsyncImage */,
+				38785EB129A61E3D0029A7D6 /* AlertMessage */,
 			);
 			productName = "The Shop";
 			productReference = 38B9E92629A3651D00267BD4 /* The Shop.app */;
@@ -434,6 +442,7 @@
 			packageReferences = (
 				38A15B7329A4A6F3001A58A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				38A15B8C29A4C471001A58A3 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				38785EB029A61E3D0029A7D6 /* XCRemoteSwiftPackageReference "AlertMessage" */,
 			);
 			productRefGroup = 38B9E92729A3651D00267BD4 /* Products */;
 			projectDirPath = "";
@@ -467,10 +476,9 @@
 				38A15B8029A4B290001A58A3 /* ProductMapper.swift in Sources */,
 				38A15B7229A4A69B001A58A3 /* CustomeError+Ext.swift in Sources */,
 				38A15B6F29A4A639001A58A3 /* APICall.swift in Sources */,
-				38A15B8329A4B790001A58A3 /* GetProductsInteractor.swift in Sources */,
+				38A15B8329A4B790001A58A3 /* HomeInteractor.swift in Sources */,
 				38785EAC29A5F7F90029A7D6 /* ViewExt.swift in Sources */,
 				38065A4829A5DA76008DB2D0 /* CartPresenter.swift in Sources */,
-				38065A4429A5C94F008DB2D0 /* GetProductByCategoryInteractor.swift in Sources */,
 				38A15B7729A4A74B001A58A3 /* ProductsResponse.swift in Sources */,
 				38A15B8B29A4C082001A58A3 /* CustomEmptyView.swift in Sources */,
 				38EFAD0029A454C800B82FC6 /* HeaderView.swift in Sources */,
@@ -484,7 +492,7 @@
 				38BCED8129A39E8E009581C7 /* GridStack.swift in Sources */,
 				38EFACFE29A4548800B82FC6 /* FavoriteView.swift in Sources */,
 				38A15B8929A4B9F9001A58A3 /* Injection.swift in Sources */,
-				389F9DAA29A5ACF10076D21D /* GetCategoriesInteractor.swift in Sources */,
+				38438DF129A6FE1B008C85F6 /* Navigation.swift in Sources */,
 				38B9E92A29A3651D00267BD4 /* MainView.swift in Sources */,
 				38A15B7D29A4AD92001A58A3 /* Product.swift in Sources */,
 			);
@@ -687,6 +695,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		38785EB029A61E3D0029A7D6 /* XCRemoteSwiftPackageReference "AlertMessage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielkmarks23/AlertMessage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		38A15B7329A4A6F3001A58A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -706,6 +722,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		38785EB129A61E3D0029A7D6 /* AlertMessage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38785EB029A61E3D0029A7D6 /* XCRemoteSwiftPackageReference "AlertMessage" */;
+			productName = AlertMessage;
+		};
 		38A15B7429A4A6F3001A58A3 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 38A15B7329A4A6F3001A58A3 /* XCRemoteSwiftPackageReference "Alamofire" */;

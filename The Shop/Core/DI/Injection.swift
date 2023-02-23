@@ -13,24 +13,12 @@ final class Injection: NSObject {
     return MainRepository.sharedInstance(remote)
   }
 
-  private func getProductsInteractor() -> GetProductsUsecase {
-    return GetProductsInteractor(repository: provideRepository())
-  }
-
-  private func getCategoriesInteractor() -> GetCategoriesUsecase {
-    return GetCategoriesInteractor(repository: provideRepository())
-  }
-
-  private func getProductsByCategoryInteractor() -> GetProductsByCategoryUsecase {
-    return GetProductsByCategoryInteractor(repository: provideRepository())
+  private func provideHome() -> HomeUsecase {
+    return HomeInteractor(repository: provideRepository())
   }
 
   func homePresenter() -> HomePresenter {
-    return HomePresenter(
-      getProductsUsecase: getProductsInteractor(),
-      getCategoriesUsecase: getCategoriesInteractor(),
-      getProductsByCategoryUsecase: getProductsByCategoryInteractor()
-    )
+    return HomePresenter(homeUsecase: provideHome())
   }
 
   func cartPresenter() -> CartPresenter {

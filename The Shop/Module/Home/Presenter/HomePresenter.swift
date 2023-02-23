@@ -13,9 +13,7 @@ class HomePresenter: ObservableObject {
   private var cancellables: Set<AnyCancellable> = []
   private let router = HomeRouter()
 
-  private let getProductsUsecase: GetProductsUsecase
-  private let getCategoriesUsecase: GetCategoriesUsecase
-  private let getProductsByCategoryUsecase: GetProductsByCategoryUsecase
+  private let homeUsecase: HomeUsecase
 
   @Published var products: [Product] = []
   @Published var errorMessageProducts: String = ""
@@ -28,18 +26,14 @@ class HomePresenter: ObservableObject {
   @Published var isErrorCategories: Bool = false
 
   init(
-    getProductsUsecase: GetProductsUsecase,
-    getCategoriesUsecase: GetCategoriesUsecase,
-    getProductsByCategoryUsecase: GetProductsByCategoryUsecase
+    homeUsecase: HomeUsecase
   ) {
-    self.getProductsUsecase = getProductsUsecase
-    self.getCategoriesUsecase = getCategoriesUsecase
-    self.getProductsByCategoryUsecase = getProductsByCategoryUsecase
+    self.homeUsecase = homeUsecase
   }
 
   func getProducts() {
     isLoadingProducts = true
-    getProductsUsecase.execute()
+    homeUsecase.getProducts()
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { completion in
         switch completion {
@@ -58,7 +52,7 @@ class HomePresenter: ObservableObject {
 
   func getCategories() {
     isLoadingCategories = true
-    getCategoriesUsecase.execute()
+    homeUsecase.getCategories()
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { completion in
         switch completion {
@@ -77,7 +71,7 @@ class HomePresenter: ObservableObject {
 
   func getProductsByCategory(_ category: String) {
     isLoadingProducts = true
-    getProductsByCategoryUsecase.execute(category)
+    homeUsecase.getProductsByCategory(category)
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { completion in
         switch completion {

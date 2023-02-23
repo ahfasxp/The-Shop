@@ -5,6 +5,7 @@
 //  Created by OjekBro - Ahfas on 22/02/23.
 //
 
+import AlertMessage
 import CachedAsyncImage
 import SwiftUI
 
@@ -13,6 +14,8 @@ struct DetailView: View {
 
   // for action back view
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+  @State private var isActive = false
 
   var body: some View {
     ZStack(alignment: .bottom) {
@@ -25,6 +28,24 @@ struct DetailView: View {
       floatingButton
     }
     .navigationBarBackButtonHidden(true)
+    .alertMessage(isPresented: $isActive, type: .banner) {
+      HStack {
+        Spacer()
+
+        Image(systemName: "checkmark.circle")
+          .resizable()
+          .frame(width: 35, height: 35)
+          .foregroundColor(.black)
+          .padding()
+
+        Text("Added successfully!")
+          .foregroundColor(.black)
+
+        Spacer()
+      }
+      .padding(.top, 10)
+      .background(.white)
+    }
   }
 }
 
@@ -104,6 +125,8 @@ extension DetailView {
           Text(product.description ?? "Product Desc")
             .padding(.horizontal, 25)
             .padding(.bottom, 11)
+
+          Spacer(minLength: 50)
         }
       }
     }
@@ -139,7 +162,12 @@ extension DetailView {
       }
       .padding(.trailing, 15)
 
-      Button(action: {}) {
+      Button(action: {
+        isActive = !isActive
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+          isActive = !isActive
+        }
+      }) {
         Text("Add to cart")
           .font(.system(size: 20))
           .fontWeight(.semibold)
