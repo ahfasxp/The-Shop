@@ -37,12 +37,8 @@ final class ProductMapper {
     productEntity.desc = product.description ?? ""
     productEntity.category = product.category ?? ""
     productEntity.image = product.image ?? ""
-
-    let ratingEntity = RatingEntity()
-    ratingEntity.rate = product.rating.rate ?? 0.0
-    ratingEntity.count = product.rating.count ?? 0
-
-    productEntity.rating = ratingEntity
+    productEntity.rate = product.rating.rate ?? 0.0
+    productEntity.count = product.rating.count ?? 0
     return productEntity
   }
 
@@ -57,8 +53,8 @@ final class ProductMapper {
       category: productEntity.category,
       image: productEntity.image,
       rating: Rating(
-        rate: productEntity.rating?.rate,
-        count: productEntity.rating?.count
+        rate: productEntity.rate,
+        count: productEntity.count
       )
     )
   }
@@ -75,8 +71,8 @@ final class ProductMapper {
         category: result.category,
         image: result.image,
         rating: Rating(
-          rate: result.rating?.rate,
-          count: result.rating?.count
+          rate: result.rate,
+          count: result.count
         )
       )
     }

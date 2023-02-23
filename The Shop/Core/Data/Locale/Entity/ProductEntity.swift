@@ -15,15 +15,10 @@ class ProductEntity: Object {
   @objc dynamic var desc: String = ""
   @objc dynamic var category: String = ""
   @objc dynamic var image: String = ""
-
-  var rating: RatingEntity?
+  @objc dynamic var rate: Double = 0.0
+  @objc dynamic var count: Int = 0
 
   override static func primaryKey() -> String? {
     return "id"
   }
-}
-
-class RatingEntity: Object {
-  @objc dynamic var rate: Double = 0.0
-  @objc dynamic var count: Int = 0
 }
