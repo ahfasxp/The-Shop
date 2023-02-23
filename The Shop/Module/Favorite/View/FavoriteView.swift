@@ -27,31 +27,38 @@ struct FavoriteView: View {
 extension FavoriteView {
   private var listFavorite: some View {
     ZStack {
-      if !favoritePresenter.favorites.isEmpty {
-        ScrollView(.vertical, showsIndicators: false) {
-          VStack(alignment: .leading, spacing: 0.0) {
-            ForEach(self.favoritePresenter.favorites, id: \.self) { favorite in
-              let detailPresenter = Injection().detailPresenter()
-              NavigationHelper.linkBuilder(
-                destination: DetailView(
-                  detailPresenter: detailPresenter,
-                  cartPresenter: self.cartPresenter,
-                  product: favorite
-                )) {
-                  FavoriteCard(
-                    favoritePresenter: favoritePresenter,
-                    cartPresenter: self.cartPresenter,
-                    product: favorite
-                  )
-                }
-            }
-          }
+      if favoritePresenter.isLoadingFavorites {
+        VStack {
+          Text("Loading...")
+          ProgressView()
         }
       } else {
-        CustomEmptyView(
-          image: "heart.slash",
-          title: "Favorites Not Found"
-        )
+        if !favoritePresenter.favorites.isEmpty {
+          ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 0.0) {
+              ForEach(self.favoritePresenter.favorites, id: \.self) { favorite in
+                let detailPresenter = Injection().detailPresenter()
+                NavigationHelper.linkBuilder(
+                  destination: DetailView(
+                    detailPresenter: detailPresenter,
+                    cartPresenter: self.cartPresenter,
+                    product: favorite
+                  )) {
+                    FavoriteCard(
+                      favoritePresenter: favoritePresenter,
+                      cartPresenter: self.cartPresenter,
+                      product: favorite
+                    )
+                  }
+              }
+            }
+          }
+        } else {
+          CustomEmptyView(
+            image: "heart.slash",
+            title: "Favorites Not Found"
+          )
+        }
       }
     }
   }

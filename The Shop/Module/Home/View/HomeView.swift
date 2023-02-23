@@ -54,7 +54,9 @@ extension HomeView {
             homePresenter.getProducts()
           }
 
-          if !homePresenter.isLoadingCategories {
+          if homePresenter.isLoadingCategories {
+            ProgressView()
+          } else {
             ForEach(homePresenter.categories, id: \.self) { category in
               VStack {
                 Text(String(category.prefix(1).uppercased()))
@@ -74,8 +76,6 @@ extension HomeView {
                 homePresenter.getProductsByCategory(selectedCat)
               }
             }
-          } else {
-            ProgressView()
           }
         }
         .padding(.leading, 17)
@@ -97,25 +97,28 @@ extension HomeView {
           title: homePresenter.errorMessageProducts
         )
       } else {
-        ScrollView(.vertical, showsIndicators: false) {
-          GridStack(rows: 5, columns: 2) { row, col in
-            if homePresenter.products.indices.contains(row * 2 + col) {
-              let detailPresenter = Injection().detailPresenter()
-              let product = homePresenter.products[row * 2 + col]
-              NavigationHelper.linkBuilder(destination: DetailView(
-                detailPresenter: detailPresenter,
-                cartPresenter: self.cartPresenter,
-                product: product
-              )) {
-                ProductTile(cartPresenter: cartPresenter, product: product)
+        if !homePresenter.products.isEmpty {
+          ScrollView(.vertical, showsIndicators: false) {
+            GridStack(rows: 5, columns: 2) { row, col in
+              if homePresenter.products.indices.contains(row * 2 + col) {
+                let detailPresenter = Injection().detailPresenter()
+                let product = homePresenter.products[row * 2 + col]
+                NavigationHelper.linkBuilder(destination: DetailView(
+                  detailPresenter: detailPresenter,
+                  cartPresenter: self.cartPresenter,
+                  product: product
+                )) {
+                  ProductTile(cartPresenter: cartPresenter, product: product)
+                }
+                .buttonStyle(PlainButtonStyle())
               }
-              .buttonStyle(PlainButtonStyle())
-            } else {
-              VStack {
-                EmptyView()
-              }.frame(maxWidth: .infinity)
             }
           }
+        } else {
+          CustomEmptyView(
+            image: "heart.slash",
+            title: "Products Not Found"
+          )
         }
       }
     }
