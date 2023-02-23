@@ -8,78 +8,49 @@
 import SwiftUI
 
 struct FavoriteView: View {
+  @ObservedObject var favoritePresenter: FavoritePresenter
   @ObservedObject var cartPresenter: CartPresenter
 
   var body: some View {
     VStack(alignment: .leading) {
       HeaderView(cartPresenter: cartPresenter, headerName: "Favorite")
       listFavorite
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
       Spacer()
+    }
+    .onAppear {
+      favoritePresenter.getFavorites()
     }
   }
 }
 
 extension FavoriteView {
   private var listFavorite: some View {
-    ScrollView(.vertical, showsIndicators: false) {
-      VStack(alignment: .leading, spacing: 0.0) {
-        productCard
-      }
-    }
-  }
-
-  private var productCard: some View {
-    VStack(alignment: .leading, spacing: 0.0) {
-      HStack(alignment: .top, spacing: 0.0) {
-        Image("item")
-          .resizable()
-          .scaledToFill()
-          .frame(width: 100, height: 100)
-          .clipped()
-          .cornerRadius(10)
-          .padding(.trailing, 20)
-
-        VStack(alignment: .leading) {
-          Text("Coffe Table")
-            .font(.system(size: 14))
-            .fontWeight(.semibold)
-            .padding(.bottom, 5)
-
-          Text("$ 50.00")
-            .font(.system(size: 16))
-            .fontWeight(.bold)
-            .padding(.bottom, 5)
+    ZStack {
+      if !favoritePresenter.favorites.isEmpty {
+        ScrollView(.vertical, showsIndicators: false) {
+          VStack(alignment: .leading, spacing: 0.0) {
+            ForEach(self.favoritePresenter.favorites, id: \.self) { favorite in
+              FavoriteCard(
+                favoritePresenter: favoritePresenter, product: favorite
+              )
+            }
+          }
         }
-
-        Spacer()
-        VStack(alignment: .leading) {
-          Image(systemName: "x.circle")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 24, height: 24)
-          Spacer()
-          Image("icon-bag")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 24, height: 24)
-            .padding(.bottom, 12)
-        }
+      } else {
+        CustomEmptyView(
+          image: "heart.slash",
+          title: "Favorites Not Found"
+        )
       }
-      .frame(height: 100)
-      .padding(.horizontal, 20)
-      .padding(.vertical, 12)
-
-      Divider()
-        .frame(height: 1)
-        .overlay(.gray)
-        .padding(.horizontal, 20)
     }
   }
 }
 
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
+    let favoritePresenter = Injection().favoritePresenter()
     let cartPresenter = Injection().cartPresenter()
-    FavoriteView(cartPresenter: cartPresenter)
+    FavoriteView(favoritePresenter: favoritePresenter, cartPresenter: cartPresenter)
   }
 }
