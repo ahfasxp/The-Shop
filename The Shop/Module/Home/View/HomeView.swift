@@ -100,8 +100,8 @@ extension HomeView {
         ScrollView(.vertical, showsIndicators: false) {
           GridStack(rows: 5, columns: 2) { row, col in
             if homePresenter.products.indices.contains(row * 2 + col) {
-              homePresenter.linkBuilder(homePresenter.products[row * 2 + col]) {
-                let product = homePresenter.products[row * 2 + col]
+              let product = homePresenter.products[row * 2 + col]
+              homePresenter.linkBuilder(product) {
                 ProductTile(cartPresenter: cartPresenter, product: product)
               }
               .buttonStyle(PlainButtonStyle())
