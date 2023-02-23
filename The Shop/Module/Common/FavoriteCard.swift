@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FavoriteCard: View {
   @ObservedObject var favoritePresenter: FavoritePresenter
+  @ObservedObject var cartPresenter: CartPresenter
   let product: Product
 
   var body: some View {
@@ -47,12 +48,17 @@ struct FavoriteCard: View {
             .onTapGesture {
               favoritePresenter.setFavorite(product: self.product)
             }
+
           Spacer()
+
           Image("icon-bag")
             .resizable()
             .scaledToFit()
             .frame(width: 24, height: 24)
             .padding(.bottom, 12)
+            .onTapGesture {
+              cartPresenter.cart.append(product)
+            }
         }
       }
       .frame(height: 100)
@@ -70,6 +76,7 @@ struct FavoriteCard: View {
 struct FavoriteCard_Previews: PreviewProvider {
   static var previews: some View {
     let favoritePresenter = Injection().favoritePresenter()
+    let cartPresenter = Injection().cartPresenter()
     let product = Product(
       id: 1,
       title: "Product Name",
@@ -80,6 +87,6 @@ struct FavoriteCard_Previews: PreviewProvider {
       rating: Rating(rate: 3.9, count: 120))
 
     FavoriteCard(
-      favoritePresenter: favoritePresenter, product: product)
+      favoritePresenter: favoritePresenter, cartPresenter: cartPresenter, product: product)
   }
 }

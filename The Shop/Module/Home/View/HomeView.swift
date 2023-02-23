@@ -102,7 +102,11 @@ extension HomeView {
             if homePresenter.products.indices.contains(row * 2 + col) {
               let detailPresenter = Injection().detailPresenter()
               let product = homePresenter.products[row * 2 + col]
-              NavigationHelper.linkBuilder(destination: DetailView(detailPresenter: detailPresenter, cartPresenter: cartPresenter, product: product)) {
+              NavigationHelper.linkBuilder(destination: DetailView(
+                detailPresenter: detailPresenter,
+                cartPresenter: self.cartPresenter,
+                product: product
+              )) {
                 ProductTile(cartPresenter: cartPresenter, product: product)
               }
               .buttonStyle(PlainButtonStyle())

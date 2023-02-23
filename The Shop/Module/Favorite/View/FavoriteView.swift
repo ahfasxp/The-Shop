@@ -35,11 +35,13 @@ extension FavoriteView {
               NavigationHelper.linkBuilder(
                 destination: DetailView(
                   detailPresenter: detailPresenter,
-                  cartPresenter: cartPresenter,
+                  cartPresenter: self.cartPresenter,
                   product: favorite
                 )) {
                   FavoriteCard(
-                    favoritePresenter: favoritePresenter, product: favorite
+                    favoritePresenter: favoritePresenter,
+                    cartPresenter: self.cartPresenter,
+                    product: favorite
                   )
                 }
             }
