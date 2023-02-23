@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeaderView: View {
   @ObservedObject var cartPresenter: CartPresenter
-  var headerName: String
+  let headerName: String
 
   var body: some View {
     HStack {

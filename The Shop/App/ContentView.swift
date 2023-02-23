@@ -10,21 +10,26 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var homePresenter: HomePresenter
   @EnvironmentObject var cartPresenter: CartPresenter
+  @EnvironmentObject var favoritePresenter: FavoritePresenter
 
   var body: some View {
     NavigationView {
       TabView {
         HomeView(
           homePresenter: homePresenter,
-          cartPresenter: cartPresenter)
-          .tabItem {
-            Label("", systemImage: "house")
-          }
+          cartPresenter: cartPresenter
+        )
+        .tabItem {
+          Label("", systemImage: "house")
+        }
 
-        FavoriteView(cartPresenter: cartPresenter)
-          .tabItem {
-            Label("", systemImage: "heart")
-          }
+        FavoriteView(
+          favoritePresenter: favoritePresenter,
+          cartPresenter: cartPresenter
+        )
+        .tabItem {
+          Label("", systemImage: "heart")
+        }
 
         NotificationView()
           .tabItem {

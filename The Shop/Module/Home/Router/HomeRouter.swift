@@ -10,6 +10,7 @@ import SwiftUI
 
 class HomeRouter {
   func makeDetailView(_ product: Product) -> some View {
-    return DetailView(product: product)
+    let detailPresenter = Injection().detailPresenter()
+    return DetailView(detailPresenter: detailPresenter, product: product)
   }
 }

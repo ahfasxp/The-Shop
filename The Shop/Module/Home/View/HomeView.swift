@@ -6,7 +6,6 @@
 //
 
 import CachedAsyncImage
-import Foundation
 import SwiftUI
 
 struct HomeView: View {
@@ -35,27 +34,27 @@ struct HomeView: View {
 extension HomeView {
   private var listCategory: some View {
     ZStack {
-      if !homePresenter.isLoadingCategories {
-        ScrollView(.horizontal, showsIndicators: false) {
-          HStack(spacing: 25.0) {
-            VStack {
-              Text("A")
-                .font(.system(size: 14))
-                .fontWeight(.semibold)
-                .padding(.vertical, 15)
-                .padding(.horizontal, 20)
-                .background((selectedCat == "All") ? .black : Color(hex: "#F5F5F5"))
-                .foregroundColor((selectedCat == "All") ? .white : .black)
-                .cornerRadius(15)
-              Text("All")
-                .frame(width: 80)
-                .lineLimit(1)
-            }
-            .onTapGesture {
-              selectedCat = "All"
-              homePresenter.getProducts()
-            }
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 25.0) {
+          VStack {
+            Text("A")
+              .font(.system(size: 14))
+              .fontWeight(.semibold)
+              .padding(.vertical, 15)
+              .padding(.horizontal, 20)
+              .background((selectedCat == "All") ? .black : Color(hex: "#F5F5F5"))
+              .foregroundColor((selectedCat == "All") ? .white : .black)
+              .cornerRadius(15)
+            Text("All")
+              .frame(width: 80)
+              .lineLimit(1)
+          }
+          .onTapGesture {
+            selectedCat = "All"
+            homePresenter.getProducts()
+          }
 
+          if !homePresenter.isLoadingCategories {
             ForEach(homePresenter.categories, id: \.self) { category in
               VStack {
                 Text(String(category.prefix(1).uppercased()))
@@ -75,10 +74,12 @@ extension HomeView {
                 homePresenter.getProductsByCategory(selectedCat)
               }
             }
+          } else {
+            ProgressView()
           }
-          .padding(.leading, 17)
-          .padding(.bottom, 20)
         }
+        .padding(.leading, 17)
+        .padding(.bottom, 20)
       }
     }
   }
@@ -100,39 +101,8 @@ extension HomeView {
           GridStack(rows: 5, columns: 2) { row, col in
             if homePresenter.products.indices.contains(row * 2 + col) {
               homePresenter.linkBuilder(homePresenter.products[row * 2 + col]) {
-                VStack(alignment: .leading) {
-                  ZStack(alignment: .bottomTrailing) {
-                    CachedAsyncImage(url: URL(string: homePresenter.products[row * 2 + col].image ?? "")) { image in
-                      image.resizable()
-                    } placeholder: {
-                      Color.gray
-                    }
-                    .scaledToFit()
-                    .frame(width: 157, height: 200)
-                    .cornerRadius(16)
-
-                    Image("icon-bag")
-                      .resizable()
-                      .scaledToFit()
-                      .frame(width: 30, height: 30)
-                      .padding(10)
-                      .onTapGesture {
-                        cartPresenter.cart.append(homePresenter.products[row * 2 + col])
-                      }
-                  }
-
-                  Text(homePresenter.products[row * 2 + col].title ?? "Pruduct Name")
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
-                    .padding(.top, 10)
-                    .padding(.bottom, 5)
-
-                  Text("$ \(String(homePresenter.products[row * 2 + col].price ?? 0.0))")
-                    .font(.system(size: 14))
-                    .fontWeight(.bold)
-                }
-                .padding(.horizontal, 10)
-                .padding(.bottom, 15)
+                let product = homePresenter.products[row * 2 + col]
+                ProductTile(cartPresenter: cartPresenter, product: product)
               }
               .buttonStyle(PlainButtonStyle())
             } else {

@@ -10,6 +10,7 @@ import CachedAsyncImage
 import SwiftUI
 
 struct DetailView: View {
+  @ObservedObject var detailPresenter: DetailPresenter
   let product: Product
 
   // for action back view
@@ -26,6 +27,8 @@ struct DetailView: View {
       }
 
       floatingButton
+    }.onAppear {
+      detailPresenter.getFavorite(id: product.id ?? 0)
     }
     .navigationBarBackButtonHidden(true)
     .alertMessage(isPresented: $isActive, type: .banner) {
@@ -150,8 +153,10 @@ extension DetailView {
 
   private var floatingButton: some View {
     HStack {
-      Button(action: {}) {
-        Image(systemName: "heart.fill")
+      Button(action: {
+        detailPresenter.addFavorite(product: self.product)
+      }) {
+        Image(systemName: detailPresenter.isFavorite ? "heart.fill" : "heart")
           .resizable()
           .scaledToFit()
           .frame(width: 24, height: 24)
@@ -184,6 +189,7 @@ extension DetailView {
 
 struct DetailView_Previews: PreviewProvider {
   static var previews: some View {
+    let detailPresenter = Injection().detailPresenter()
     let product = Product(
       id: 1,
       title: "Product Name",
@@ -192,6 +198,6 @@ struct DetailView_Previews: PreviewProvider {
       category: "Category",
       image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
       rating: Rating(rate: 3.9, count: 120))
-    DetailView(product: product)
+    DetailView(detailPresenter: detailPresenter, product: product)
   }
 }
