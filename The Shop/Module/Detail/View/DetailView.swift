@@ -175,24 +175,24 @@ extension DetailView {
           .foregroundColor(.black)
           .cornerRadius(10)
       }
-      .padding(.trailing, 15)
+//      .padding(.trailing, 15)
 
-      Button(action: {
-        isActive = !isActive
-        cartPresenter.cart.append(product)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-          isActive = !isActive
-        }
-      }) {
-        Text("Add to cart")
-          .font(.system(size: 20))
-          .fontWeight(.semibold)
-          .frame(maxWidth: .infinity)
-          .padding(18)
-          .background(.black)
-          .foregroundColor(.white)
-          .cornerRadius(10)
-      }
+//      Button(action: {
+//        isActive = !isActive
+//        cartPresenter.cart.append(product)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//          isActive = !isActive
+//        }
+//      }) {
+//        Text("Add to cart")
+//          .font(.system(size: 20))
+//          .fontWeight(.semibold)
+//          .frame(maxWidth: .infinity)
+//          .padding(18)
+//          .background(.black)
+//          .foregroundColor(.white)
+//          .cornerRadius(10)
+//      }
     }
     .padding(.horizontal, 25)
   }

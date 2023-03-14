@@ -13,7 +13,7 @@ struct ProfileView: View {
       header
         .padding(.bottom, 18)
       profileCard
-      listMenu
+//      listMenu
       Spacer()
     }
   }
@@ -27,10 +27,10 @@ extension ProfileView {
         .font(.title)
         .fontWeight(.semibold)
       Spacer()
-      Image(systemName: "rectangle.portrait.and.arrow.right")
-        .resizable()
-        .scaledToFit()
-        .frame(width: 24, height: 24)
+//      Image(systemName: "rectangle.portrait.and.arrow.right")
+//        .resizable()
+//        .scaledToFit()
+//        .frame(width: 24, height: 24)
     }
     .padding()
   }
