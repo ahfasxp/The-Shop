@@ -5,21 +5,27 @@
 //  Created by OjekBro - Ahfas on 21/02/23.
 //
 
+import Core
+import Product
 import SwiftUI
 
 struct FavoriteView: View {
-  @ObservedObject var favoritePresenter: FavoritePresenter
-  @ObservedObject var cartPresenter: CartPresenter
+  @ObservedObject var favoritePresenter: FavoritePresenter<Interactor<Any, [ProductDomain], GetFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<Int, ProductDomain, GetFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<[ProductDomain], Bool, AddFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<ProductDomain, Bool, DeleteFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>>
 
   var body: some View {
     VStack(alignment: .leading) {
-      HeaderView(cartPresenter: cartPresenter, headerName: "Favorite")
+      HeaderView(headerName: "Favorite")
       listFavorite
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       Spacer()
     }
     .onAppear {
-      favoritePresenter.getFavorites()
+      if favoritePresenter.list.count == 0 {
+        favoritePresenter.getFavorites(request: nil)
+      }
     }
   }
 }
@@ -27,47 +33,46 @@ struct FavoriteView: View {
 extension FavoriteView {
   private var listFavorite: some View {
     ZStack {
-      if favoritePresenter.isLoadingFavorites {
+      if favoritePresenter.isLoading {
         VStack {
           Text("Loading...")
           ProgressView()
         }
+      } else if favoritePresenter.isError {
+        CustomEmptyView(
+          image: "exclamationmark.triangle",
+          title: favoritePresenter.errorMessage
+        )
+      } else if favoritePresenter.list.isEmpty {
+        CustomEmptyView(
+          image: "heart.slash",
+          title: "Favorites Not Found"
+        )
       } else {
-        if !favoritePresenter.favorites.isEmpty {
-          ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 0.0) {
-              ForEach(self.favoritePresenter.favorites, id: \.self) { favorite in
-                let detailPresenter = Injection().detailPresenter()
-                NavigationHelper.linkBuilder(
-                  destination: DetailView(
-                    detailPresenter: detailPresenter,
-                    cartPresenter: self.cartPresenter,
-                    product: favorite
-                  )) {
-                    FavoriteCard(
-                      favoritePresenter: favoritePresenter,
-                      cartPresenter: self.cartPresenter,
-                      product: favorite
-                    )
-                  }
-              }
+        ScrollView(.vertical, showsIndicators: false) {
+          VStack(alignment: .leading, spacing: 0.0) {
+            ForEach(favoritePresenter.list, id: \.self) { product in
+              NavigationHelper.linkBuilder(
+                destination: DetailView(
+                  favoritePresenter: favoritePresenter,
+                  product: product
+                )) {
+                  FavoriteCard(
+                    favoritePresenter: favoritePresenter,
+                    product: product
+                  )
+                }
             }
           }
-        } else {
-          CustomEmptyView(
-            image: "heart.slash",
-            title: "Favorites Not Found"
-          )
         }
       }
     }
   }
 }
 
-struct FavoriteView_Previews: PreviewProvider {
-  static var previews: some View {
-    let favoritePresenter = Injection().favoritePresenter()
-    let cartPresenter = Injection().cartPresenter()
-    FavoriteView(favoritePresenter: favoritePresenter, cartPresenter: cartPresenter)
-  }
-}
+// struct FavoriteView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let favoritePresenter = Injection().favoritePresenter()
+//    FavoriteView(favoritePresenter: favoritePresenter)
+//  }
+// }

@@ -6,27 +6,41 @@
 //
 
 import CachedAsyncImage
+import Category
+import Core
+import Product
 import SwiftUI
 
 struct HomeView: View {
-  @ObservedObject var homePresenter: HomePresenter
-  @ObservedObject var cartPresenter: CartPresenter
+  @ObservedObject var productsPresenter: GetListPresenter<String, ProductDomain, Interactor<String, [ProductDomain], GetProductsRepository<GetProductsRemoteDataSource, ProductTransformer>>>
+
+  @ObservedObject var categoriesPresenter: GetListPresenter<Any, String, Interactor<Any, [String], GetCategoriesRepository<GetCategoriesRemoteDataSource>>>
+
+  @ObservedObject var favoritePresenter: FavoritePresenter<Interactor<Any, [ProductDomain], GetFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<Int, ProductDomain, GetFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<[ProductDomain], Bool, AddFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<ProductDomain, Bool, DeleteFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>>
 
   @State private var selectedCat = "All"
 
   var body: some View {
     VStack(alignment: .leading, spacing: 0.0) {
-      HeaderView(cartPresenter: cartPresenter, headerName: "The Shop")
+      HeaderView(headerName: "The Shop")
         .padding(.bottom, 20)
       listCategory
+        .onAppear {
+          if categoriesPresenter.list.count == 0 {
+            categoriesPresenter.getList(request: nil)
+          }
+        }
       listProduct
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+          if productsPresenter.list.count == 0 {
+            productsPresenter.getList(request: nil)
+          }
+        }
       Spacer()
-    }.onAppear {
-      if homePresenter.products.isEmpty && homePresenter.categories.isEmpty {
-        homePresenter.getProducts()
-        homePresenter.getCategories()
-      }
     }
   }
 }
@@ -51,13 +65,17 @@ extension HomeView {
           }
           .onTapGesture {
             selectedCat = "All"
-            homePresenter.getProducts()
+            productsPresenter.getList(request: nil)
           }
 
-          if homePresenter.isLoadingCategories {
+          if categoriesPresenter.isLoading {
             ProgressView()
+          } else if categoriesPresenter.isError {
+            Text(categoriesPresenter.errorMessage)
+          } else if categoriesPresenter.list.isEmpty {
+            Text("Not Found")
           } else {
-            ForEach(homePresenter.categories, id: \.self) { category in
+            ForEach(categoriesPresenter.list, id: \.self) { category in
               VStack {
                 Text(String(category.prefix(1).uppercased()))
                   .font(.system(size: 14))
@@ -73,7 +91,7 @@ extension HomeView {
               }
               .onTapGesture {
                 selectedCat = category
-                homePresenter.getProductsByCategory(selectedCat)
+                productsPresenter.getList(request: selectedCat)
               }
             }
           }
@@ -86,52 +104,48 @@ extension HomeView {
 
   private var listProduct: some View {
     ZStack {
-      if homePresenter.isLoadingProducts {
+      if productsPresenter.isLoading {
         VStack {
           Text("Loading...")
           ProgressView()
         }
-      } else if homePresenter.isErrorProducts {
+      } else if productsPresenter.isError {
         CustomEmptyView(
           image: "exclamationmark.triangle",
-          title: homePresenter.errorMessageProducts
+          title: productsPresenter.errorMessage
+        )
+      } else if productsPresenter.list.isEmpty {
+        CustomEmptyView(
+          image: "heart.slash",
+          title: "Products Not Found"
         )
       } else {
-        if !homePresenter.products.isEmpty {
-          ScrollView(.vertical, showsIndicators: false) {
-            GridStack(rows: 5, columns: 2) { row, col in
-              if homePresenter.products.indices.contains(row * 2 + col) {
-                let detailPresenter = Injection().detailPresenter()
-                let product = homePresenter.products[row * 2 + col]
-                NavigationHelper.linkBuilder(destination: DetailView(
-                  detailPresenter: detailPresenter,
-                  cartPresenter: self.cartPresenter,
-                  product: product
-                )) {
-                  ProductTile(cartPresenter: cartPresenter, product: product)
-                }
-                .buttonStyle(PlainButtonStyle())
+        ScrollView(.vertical, showsIndicators: false) {
+          GridStack(rows: 5, columns: 2) { row, col in
+            if productsPresenter.list.indices.contains(row * 2 + col) {
+              let product = productsPresenter.list[row * 2 + col]
+              NavigationHelper.linkBuilder(destination: DetailView(
+                favoritePresenter: favoritePresenter,
+                product: product
+              )) {
+                ProductTile(product: product)
               }
+              .buttonStyle(PlainButtonStyle())
             }
           }
-        } else {
-          CustomEmptyView(
-            image: "heart.slash",
-            title: "Products Not Found"
-          )
         }
       }
     }
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    let homePresenter = Injection().homePresenter()
-    let cartPresenter = Injection().cartPresenter()
-    HomeView(
-      homePresenter: homePresenter,
-      cartPresenter: cartPresenter
-    )
-  }
-}
+// struct HomeView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let homePresenter = Injection().homePresenter()
+//    let cartPresenter = Injection().cartPresenter()
+//    HomeView(
+//      homePresenter: homePresenter,
+//      cartPresenter: cartPresenter
+//    )
+//  }
+// }

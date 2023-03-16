@@ -5,47 +5,80 @@
 //  Created by OjekBro - Ahfas on 21/02/23.
 //
 
+import Category
+import Core
 import Foundation
+import Product
 import RealmSwift
 
 final class Injection: NSObject {
-  // Repository
-  private func provideRepository() -> MainRepositoryProtocol {
-    let realm = try? Realm()
+  private let realm = try? Realm()
 
-    let remote = RemoteDataSource.sharedInstance
-    let locale = LocaleDataSource.sharedInstance(realm)
+  func provideProducts<U: UseCase>() -> U where U.Request == String, U.Response == [ProductDomain] {
+    let remote = GetProductsRemoteDataSource(endpoint: Endpoints.Gets.products.url, endpointByCategory: Endpoints.Gets.productsByCategory.url)
 
-    return MainRepository.sharedInstance(remote, locale)
+    let mapper = ProductTransformer()
+
+    let repository = GetProductsRepository(
+      remoteDataSource: remote,
+      mapper: mapper)
+
+    return Interactor(repository: repository) as! U
   }
 
-  // Interactor
-  private func provideHome() -> HomeUsecase {
-    return HomeInteractor(repository: provideRepository())
+  func provideCategories<U: UseCase>() -> U where U.Request == Any, U.Response == [String] {
+    let remote = GetCategoriesRemoteDataSource(endpoint: Endpoints.Gets.categories.url)
+
+    let repository = GetCategoriesRepository(remoteDataSource: remote)
+
+    return Interactor(repository: repository) as! U
   }
 
-  private func provideFavorite() -> FavoriteUsecase {
-    return FavoriteInteractor(repository: provideRepository())
+  func provideFavoriteProducts<U: UseCase>() -> U where U.Request == Any, U.Response == [ProductDomain] {
+    let locale = FavoriteProductLocaleDataSource(realm: realm!)
+
+    let mapper = ProductTransformer()
+
+    let repository = GetFavoriteProductsRepository(
+      localeDataSource: locale,
+      mapper: mapper)
+
+    return Interactor(repository: repository) as! U
   }
 
-  private func provideDetail() -> DetailUsecase {
-    return DetailInteractor(repository: provideRepository())
+  func provideFavoriteProduct<U: UseCase>() -> U where U.Request == Int, U.Response == ProductDomain {
+    let locale = FavoriteProductLocaleDataSource(realm: realm!)
+
+    let mapper = ProductTransformer()
+
+    let repository = GetFavoriteProductRepository(
+      localeDataSource: locale,
+      mapper: mapper)
+
+    return Interactor(repository: repository) as! U
   }
 
-  // Presenter
-  func homePresenter() -> HomePresenter {
-    return HomePresenter(homeUsecase: provideHome())
+  func provideAddFavoriteProduct<U: UseCase>() -> U where U.Request == [ProductDomain], U.Response == Bool {
+    let locale = FavoriteProductLocaleDataSource(realm: realm!)
+
+    let mapper = ProductTransformer()
+
+    let repository = AddFavoriteProductsRepository(
+      localeDataSource: locale,
+      mapper: mapper)
+
+    return Interactor(repository: repository) as! U
   }
 
-  func favoritePresenter() -> FavoritePresenter {
-    return FavoritePresenter(favoriteUsecase: provideFavorite())
-  }
+  func provideDeleteFavoriteProduct<U: UseCase>() -> U where U.Request == ProductDomain, U.Response == Bool {
+    let locale = FavoriteProductLocaleDataSource(realm: realm!)
 
-  func detailPresenter() -> DetailPresenter {
-    return DetailPresenter(detailUsecase: provideDetail())
-  }
+    let mapper = ProductTransformer()
 
-  func cartPresenter() -> CartPresenter {
-    return CartPresenter()
+    let repository = DeleteFavoriteProductRepository(
+      localeDataSource: locale,
+      mapper: mapper)
+
+    return Interactor(repository: repository) as! U
   }
 }

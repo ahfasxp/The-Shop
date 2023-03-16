@@ -19,10 +19,6 @@ struct NotificationView: View {
 extension NotificationView {
   private var header: some View {
     HStack {
-//      Image("icon-search")
-//        .resizable()
-//        .scaledToFit()
-//        .frame(width: 24, height: 24)
       Spacer()
 
       Text("Notification")

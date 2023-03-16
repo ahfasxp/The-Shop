@@ -7,12 +7,17 @@
 
 import AlertMessage
 import CachedAsyncImage
+import Core
+import Product
 import SwiftUI
 
 struct DetailView: View {
-  @ObservedObject var detailPresenter: DetailPresenter
-  @ObservedObject var cartPresenter: CartPresenter
-  let product: Product
+  @ObservedObject var favoritePresenter: FavoritePresenter<Interactor<Any, [ProductDomain], GetFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<Int, ProductDomain, GetFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<[ProductDomain], Bool, AddFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<ProductDomain, Bool, DeleteFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>>
+
+  let product: ProductDomain
 
   // for action back view
   @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -30,7 +35,7 @@ struct DetailView: View {
 
       floatingButton
     }.onAppear {
-      detailPresenter.getFavorite(id: product.id ?? 0)
+      favoritePresenter.getFavorite(request: product.id ?? 0)
     }
     .navigationBarBackButtonHidden(true)
     .alertMessage(isPresented: $isActive, type: .banner) {
@@ -164,9 +169,13 @@ extension DetailView {
   private var floatingButton: some View {
     HStack {
       Button(action: {
-        detailPresenter.addFavorite(product: self.product)
+        if favoritePresenter.isFavorite {
+          favoritePresenter.deleteFavorite(request: product)
+        } else {
+          favoritePresenter.addFavorite(request: [product])
+        }
       }) {
-        Image(systemName: detailPresenter.isFavorite ? "heart.fill" : "heart")
+        Image(systemName: favoritePresenter.isFavorite ? "heart.fill" : "heart")
           .resizable()
           .scaledToFit()
           .frame(width: 24, height: 24)
@@ -175,41 +184,23 @@ extension DetailView {
           .foregroundColor(.black)
           .cornerRadius(10)
       }
-//      .padding(.trailing, 15)
-
-//      Button(action: {
-//        isActive = !isActive
-//        cartPresenter.cart.append(product)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//          isActive = !isActive
-//        }
-//      }) {
-//        Text("Add to cart")
-//          .font(.system(size: 20))
-//          .fontWeight(.semibold)
-//          .frame(maxWidth: .infinity)
-//          .padding(18)
-//          .background(.black)
-//          .foregroundColor(.white)
-//          .cornerRadius(10)
-//      }
     }
     .padding(.horizontal, 25)
   }
 }
 
-struct DetailView_Previews: PreviewProvider {
-  static var previews: some View {
-    let detailPresenter = Injection().detailPresenter()
-    let cartPresenter = Injection().cartPresenter()
-    let product = Product(
-      id: 1,
-      title: "Product Name",
-      price: 12.0,
-      description: "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
-      category: "Category",
-      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      rating: Rating(rate: 3.9, count: 120))
-    DetailView(detailPresenter: detailPresenter, cartPresenter: cartPresenter, product: product)
-  }
-}
+// struct DetailView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let detailPresenter = Injection().detailPresenter()
+//    let cartPresenter = Injection().cartPresenter()
+//    let product = Product(
+//      id: 1,
+//      title: "Product Name",
+//      price: 12.0,
+//      description: "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
+//      category: "Category",
+//      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+//      rating: Rating(rate: 3.9, count: 120))
+//    DetailView(detailPresenter: detailPresenter, cartPresenter: cartPresenter, product: product)
+//  }
+// }

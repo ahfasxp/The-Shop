@@ -6,12 +6,17 @@
 //
 
 import CachedAsyncImage
+import Core
+import Product
 import SwiftUI
 
 struct FavoriteCard: View {
-  @ObservedObject var favoritePresenter: FavoritePresenter
-  @ObservedObject var cartPresenter: CartPresenter
-  let product: Product
+  @ObservedObject var favoritePresenter: FavoritePresenter<Interactor<Any, [ProductDomain], GetFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<Int, ProductDomain, GetFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<[ProductDomain], Bool, AddFavoriteProductsRepository<FavoriteProductLocaleDataSource, ProductTransformer>>,
+    Interactor<ProductDomain, Bool, DeleteFavoriteProductRepository<FavoriteProductLocaleDataSource, ProductTransformer>>>
+
+  let product: ProductDomain
 
   var body: some View {
     VStack(alignment: .leading, spacing: 0.0) {
@@ -46,7 +51,7 @@ struct FavoriteCard: View {
             .scaledToFit()
             .frame(width: 24, height: 24)
             .onTapGesture {
-              favoritePresenter.setFavorite(product: self.product)
+              favoritePresenter.deleteFavorite(request: product)
             }
 
           Spacer()
@@ -56,9 +61,6 @@ struct FavoriteCard: View {
             .scaledToFit()
             .frame(width: 24, height: 24)
             .padding(.bottom, 12)
-            .onTapGesture {
-              cartPresenter.cart.append(product)
-            }
         }
       }
       .frame(height: 100)
@@ -73,20 +75,19 @@ struct FavoriteCard: View {
   }
 }
 
-struct FavoriteCard_Previews: PreviewProvider {
-  static var previews: some View {
-    let favoritePresenter = Injection().favoritePresenter()
-    let cartPresenter = Injection().cartPresenter()
-    let product = Product(
-      id: 1,
-      title: "Product Name",
-      price: 12.0,
-      description: "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
-      category: "Category",
-      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      rating: Rating(rate: 3.9, count: 120))
-
-    FavoriteCard(
-      favoritePresenter: favoritePresenter, cartPresenter: cartPresenter, product: product)
-  }
-}
+// struct FavoriteCard_Previews: PreviewProvider {
+//  static var previews: some View {
+//    let favoritePresenter = Injection().favoritePresenter()
+//    let product = Product(
+//      id: 1,
+//      title: "Product Name",
+//      price: 12.0,
+//      description: "Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home.",
+//      category: "Category",
+//      image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+//      rating: Rating(rate: 3.9, count: 120))
+//
+//    FavoriteCard(
+//      favoritePresenter: favoritePresenter, product: product)
+//  }
+// }
