@@ -15,7 +15,7 @@ let package = Package(
   dependencies: [
     // Dependencies declare other packages that this package depends on.
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
-    .package(path: "../Core"),
+    .package(url: "https://github.com/ahfasxp/The-Shop-CorePackage.git", branch: "main"),
     // .package(url: /* package url */, from: "1.0.0"),
   ],
   targets: [
@@ -24,8 +24,8 @@ let package = Package(
     .target(
       name: "Category",
       dependencies: [
-        "Core",
         "Alamofire",
+        .product(name: "CorePackage", package: "The-Shop-CorePackage"),
       ]),
     .testTarget(
       name: "CategoryTests",

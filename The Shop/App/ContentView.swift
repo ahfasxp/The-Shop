@@ -6,7 +6,7 @@
 //
 
 import Category
-import Core
+import CorePackage
 import Product
 import SwiftUI
 

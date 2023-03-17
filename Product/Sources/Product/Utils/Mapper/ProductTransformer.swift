@@ -5,7 +5,7 @@
 //  Created by OjekBro - Ahfas on 16/03/23.
 //
 
-import Core
+import CorePackage
 
 public struct ProductTransformer: Mapper {
   public typealias Response = ProductResponse

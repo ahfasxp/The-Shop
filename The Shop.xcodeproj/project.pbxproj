@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3805067829C3FA8B005A2678 /* CorePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3805067729C3FA8B005A2678 /* CorePackage */; };
 		3808B23F29C03445001928B6 /* mockup+proyek1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3808B23E29C03445001928B6 /* mockup+proyek1.png */; };
 		38438DF829A71F60008C85F6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 38438DF729A71F60008C85F6 /* Realm */; };
 		38438DFA29A71F60008C85F6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 38438DF929A71F60008C85F6 /* RealmSwift */; };
@@ -22,7 +23,6 @@
 		38A15B8929A4B9F9001A58A3 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8829A4B9F9001A58A3 /* Injection.swift */; };
 		38A15B8B29A4C082001A58A3 /* CustomEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A15B8A29A4C082001A58A3 /* CustomEmptyView.swift */; };
 		38A15B8E29A4C471001A58A3 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 38A15B8D29A4C471001A58A3 /* CachedAsyncImage */; };
-		38B223FD29C2B5B1002D377A /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 38B223FC29C2B5B1002D377A /* Core */; };
 		38B223FF29C2B5B1002D377A /* Product in Frameworks */ = {isa = PBXBuildFile; productRef = 38B223FE29C2B5B1002D377A /* Product */; };
 		38B5B76F29C2D7CF004DB9CE /* Category in Frameworks */ = {isa = PBXBuildFile; productRef = 38B5B76E29C2D7CF004DB9CE /* Category */; };
 		38B9E92A29A3651D00267BD4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B9E92929A3651D00267BD4 /* MainView.swift */; };
@@ -41,7 +41,6 @@
 		3805067429C3F2E5005A2678 /* Product */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Product; sourceTree = "<group>"; };
 		3805067529C3F2FB005A2678 /* Category */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Category; sourceTree = "<group>"; };
 		3808B23E29C03445001928B6 /* mockup+proyek1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mockup+proyek1.png"; sourceTree = "<group>"; };
-		3820C1A129C3F2A400D494AE /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		38438E0929A74FFD008C85F6 /* FavoriteCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCard.swift; sourceTree = "<group>"; };
 		38438E0B29A753E4008C85F6 /* ProductTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTile.swift; sourceTree = "<group>"; };
 		384C373329A78F96009AAA18 /* NavigationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHelper.swift; sourceTree = "<group>"; };
@@ -73,10 +72,10 @@
 				38A15B7529A4A6F3001A58A3 /* Alamofire in Frameworks */,
 				38438DF829A71F60008C85F6 /* Realm in Frameworks */,
 				38438DFA29A71F60008C85F6 /* RealmSwift in Frameworks */,
+				3805067829C3FA8B005A2678 /* CorePackage in Frameworks */,
 				38B223FF29C2B5B1002D377A /* Product in Frameworks */,
 				38A15B8E29A4C471001A58A3 /* CachedAsyncImage in Frameworks */,
 				38B5B76F29C2D7CF004DB9CE /* Category in Frameworks */,
-				38B223FD29C2B5B1002D377A /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +93,6 @@
 		385CF7D829C1EFE800CEECD8 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				3820C1A129C3F2A400D494AE /* Core */,
 				3805067429C3F2E5005A2678 /* Product */,
 				3805067529C3F2FB005A2678 /* Category */,
 			);
@@ -335,9 +333,9 @@
 				38785EB129A61E3D0029A7D6 /* AlertMessage */,
 				38438DF729A71F60008C85F6 /* Realm */,
 				38438DF929A71F60008C85F6 /* RealmSwift */,
-				38B223FC29C2B5B1002D377A /* Core */,
 				38B223FE29C2B5B1002D377A /* Product */,
 				38B5B76E29C2D7CF004DB9CE /* Category */,
+				3805067729C3FA8B005A2678 /* CorePackage */,
 			);
 			productName = "The Shop";
 			productReference = 38B9E92629A3651D00267BD4 /* The Shop.app */;
@@ -372,6 +370,7 @@
 				38A15B8C29A4C471001A58A3 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				38785EB029A61E3D0029A7D6 /* XCRemoteSwiftPackageReference "AlertMessage" */,
 				38438DF629A71F60008C85F6 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				3805067629C3FA8B005A2678 /* XCRemoteSwiftPackageReference "The-Shop-CorePackage" */,
 			);
 			productRefGroup = 38B9E92729A3651D00267BD4 /* Products */;
 			projectDirPath = "";
@@ -617,6 +616,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3805067629C3FA8B005A2678 /* XCRemoteSwiftPackageReference "The-Shop-CorePackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ahfasxp/The-Shop-CorePackage.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		38438DF629A71F60008C85F6 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
@@ -652,6 +659,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3805067729C3FA8B005A2678 /* CorePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3805067629C3FA8B005A2678 /* XCRemoteSwiftPackageReference "The-Shop-CorePackage" */;
+			productName = CorePackage;
+		};
 		38438DF729A71F60008C85F6 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 38438DF629A71F60008C85F6 /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -676,10 +688,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38A15B8C29A4C471001A58A3 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
-		};
-		38B223FC29C2B5B1002D377A /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Core;
 		};
 		38B223FE29C2B5B1002D377A /* Product */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -6,7 +6,7 @@
 //
 
 import Category
-import Core
+import CorePackage
 import Foundation
 import Product
 import RealmSwift

@@ -7,7 +7,7 @@
 
 import Alamofire
 import Combine
-import Core
+import CorePackage
 import Foundation
  
 public struct GetProductsRemoteDataSource: RemoteDataSource {

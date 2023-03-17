@@ -7,7 +7,7 @@
 
 import AlertMessage
 import CachedAsyncImage
-import Core
+import CorePackage
 import Product
 import SwiftUI
 

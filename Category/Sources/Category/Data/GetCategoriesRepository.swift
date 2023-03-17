@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Core
+import CorePackage
  
 public struct GetCategoriesRepository<CategoryRemoteDataSource: RemoteDataSource>: Repository where
   CategoryRemoteDataSource.Response == [String]

@@ -16,7 +16,7 @@ let package = Package(
     // Dependencies declare other packages that this package depends on.
     .package(url: "https://github.com/realm/realm-swift.git", branch: "master"),
     .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
-    .package(path: "../Core"),
+    .package(url: "https://github.com/ahfasxp/The-Shop-CorePackage.git", branch: "main"),
     // .package(url: /* package url */, from: "1.0.0"),
   ],
   targets: [
@@ -26,8 +26,8 @@ let package = Package(
       name: "Product",
       dependencies: [
         .product(name: "RealmSwift", package: "realm-swift"),
-        "Core",
         "Alamofire",
+        .product(name: "CorePackage", package: "The-Shop-CorePackage"),
       ]),
     .testTarget(
       name: "ProductTests",

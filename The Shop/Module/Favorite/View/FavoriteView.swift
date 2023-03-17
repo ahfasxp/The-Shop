@@ -5,7 +5,7 @@
 //  Created by OjekBro - Ahfas on 21/02/23.
 //
 
-import Core
+import CorePackage
 import Product
 import SwiftUI
 

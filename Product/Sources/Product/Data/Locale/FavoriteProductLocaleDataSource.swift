@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Core
+import CorePackage
 import Foundation
 import RealmSwift
 
