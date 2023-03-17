@@ -1,7 +1,6 @@
 workflows:
   build:
-    environment:
-      xcode: "12.5.1"
+    instance_type: "mac_mini_xcode12_4"
     scripts:
       - xcodebuild clean build -workspace The Shop.xcworkspace -scheme The Shop -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.2'
       - xcodebuild test -workspace MySwiftUIApp.xcworkspace -scheme MySwiftUIApp -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.2'
